@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+    datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/adam_db
+      username: adam
+      password: 123456
+      filters: stat
+      maxActive: 20
+      initialSize: 1
+      maxWait: 60000
+      minIdle: 1
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+
+    redis:
+        cluster:
+          nodes: 127.0.0.1:7000,127.0.0.1:7001,127.0.0.1:7002,127.0.0.1:7003,127.0.0.1:7004,127.0.0.1:7005
+          testOnReturn: true
+          maxIdle: 10
+          minIdle: 2
+          maxWaitMills: 3000
+          testOnBorrow: true
+          maxTotal: 4
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.excalibur.adam.entity
+
+#pagehelper分页插件
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
